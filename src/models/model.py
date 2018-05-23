@@ -47,20 +47,20 @@ def TextCNN(MAX_SEQUENCE_LENGTH, num_classes, num_words, dropout_rate=0.4, flag=
                       kernel_size=kernel,
                       padding='valid',
                       strides=1,
-                      kernel_initializer='he_uniform',
                       activation='relu')(x)
 
         pool = MaxPooling1D(pool_size=MAX_SEQUENCE_LENGTH - kernel + 1)(conv)
 
         pooled.append(pool)
 
-    merged = Concatenate()(pooled)
+    merged = Concatenate(axis=1)(pooled)
 
     flatten = Flatten()(merged)
 
-    drop = Dropout(rate=dropout_rate)(flatten)
-
-    x_output = Dense(num_classes, activation='softmax', kernel_initializer='he_uniform')(drop)
+    #drop = Dropout(rate=dropout_rate)(flatten)
+    dennse = Dense(300, activation='relu')(flatten)
+    
+    x_output = Dense(num_classes, activation='softmax', kernel_initializer='he_uniform')(dennse)
 
     return Model(inputs=x_input, outputs=x_output)
 

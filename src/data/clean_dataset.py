@@ -18,8 +18,8 @@ def build_parser():
     
     parser = ArgumentParser()
     
-    parser.add_argument('--glove', action='store_true',
-                        dest='wordvector', help='Flag to use glove word vectors instead of word2vec.',
+    parser.add_argument('--word2vec', action='store_true',
+                        dest='wordvector', help='Flag to use GoogleNews word2vec vectors instead of glove.',
                         default=False)
 
     parser.add_argument('--dataset', type=str, dest='dataset', 
@@ -73,28 +73,28 @@ def data_from_directory(directory):
                 if 0 < i:
                     t = t[i:]
                 if fname.isdigit():
-                    texts.append(clean_str(t))
+                    texts.append(t)
                     f.close()
                     labels.append(label_id)
                 else:
                     split_text = t.split('\n')
-                    texts.extend([clean_str(txt) for txt in split_text])
+                    texts.extend(split_text)
                     f.close()            
                     labels.extend(len(split_text)*[label_id])
 
     return texts, labels
 
-def get_word_vectors(word_index, glove_flag=False):
+def get_word_vectors(word_index, word2vec_flag=False):
     
     counter = 0
     
     num_words = min(MAX_NUM_WORDS, len(word_index) + 1)
     embedding_matrix = np.zeros((num_words, EMBEDDING_DIM))
     
-    if glove_flag:
+    if not word2vec_flag:
     
         embeddings_index = {}
-        f = open(os.path.join('data/raw/wordvectors', 'glove.6B.300d.txt'))
+        f = open(os.path.join('data/raw/wordvectors/glove.6B', 'glove.6B.300d.txt'))
         for line in f:
             values = line.split()
             word = values[0]
@@ -152,19 +152,24 @@ def main():
     print('Shape of label tensor:', labels.shape)
     
     print('Preparing embedding matrix.')
-    embedding_matrix = get_word_vectors(word_index, glove_flag=options.wordvector)
+    embedding_matrix = get_word_vectors(word_index, word2vec_flag=options.wordvector)
     print('Shape of embedding matrix:', embedding_matrix.shape)
     
     processed_DIR = os.path.join('data/processed', options.dataset)
     
     if not os.path.exists(processed_DIR):
         os.makedirs(processed_DIR)
-
-    np.save(os.path.join(processed_DIR, 'embedding.npy'), embedding_matrix, allow_pickle=False)
+    
+    fname_wordvec = 'glove_'
+    if options.wordvector:
+        fname_wordvec = 'word2vec_'
+    
+    np.save(os.path.join(processed_DIR, fname_wordvec+'embedding.npy'), embedding_matrix, allow_pickle=False)
     
     x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.10, random_state=42, shuffle=True)  
     dd.io.save(os.path.join(processed_DIR, 'data.h5'), {'x_train': x_train, 'y_train': y_train, 
-                                                        'x_test': x_test, 'y_test': y_test})
+                                                        'x_test': x_test, 'y_test': y_test, 
+                                                        'num_words': embedding_matrix.shape[0]})
     
     print ('Saved embedding.npy and data.h5 in %s' % processed_DIR)
     

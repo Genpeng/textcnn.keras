@@ -1,8 +1,8 @@
-tensorflow
+tensorflow-gpu
 keras
 scikit-learn
-hyperas
 pandas
 deepdish
+h5py==2.8.0rc1
 matplotlib
 ipykernel
