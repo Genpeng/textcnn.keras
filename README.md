@@ -19,14 +19,14 @@ Number of GPUs
 Datasets 
 
 ## TO DO
-* Update clean_data.py to be generic script that can be applied to multiple datasets and saves in same format
+* ~~Update clean_data.py to be generic script that can be applied to multiple datasets and saves in same format~~
 
 * wget scripts in install.sh to download word vector files
 
-* Update requirements.txt accordingly
+* ~~Update requirements.txt accordingly~~
 
-* Flags for word2vec or glove vectors
+* ~~Flags for word2vec or glove vectors~~
 
-* Clean Data additions to script might be needed. Need to examine prepare data script for original paper. 
+* ~~Clean Data additions to script might be needed. Need to examine prepare data script for original paper.~~
 
-* Better handling for unknown word vectors, especially if trainable flag is False. 
+* ~~Better handling for unknown word vectors, especially if trainable flag is False.~~ 
