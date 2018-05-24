@@ -21,7 +21,7 @@ mkdir lib
 cd lib
 git clone https://github.com/anmolsjoshi/KerasHelpers.git
 cp KerasHelpers/__init__.py .
-cd .
+cd ..
 
 echo "Downloading word vectors"
 mkdir data/raw/wordvectors
@@ -34,7 +34,7 @@ mkdir glove.6B
 unzip glove.6B.zip -d glove.6B/
 rm -rf glove.6B.zip
 echo "Glove vectors downloaded"
-cd . 
+cd ..
 
 echo "Downloading 20_newsgroup dataset"
 wget -c "http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.tar.gz"
@@ -46,8 +46,7 @@ mkdir rt-polarity
 cd rt-polarity
 wget -c "https://github.com/yoonkim/CNN_sentence/blob/master/rt-polarity.neg"
 wget -c "https://github.com/yoonkim/CNN_sentence/blob/master/rt-polarity.pos"
-cd .
-cd .
-cd .
+cd ..
+cd ..
 
 echo "Setup Complete"
