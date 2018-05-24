@@ -73,11 +73,11 @@ def data_from_directory(directory):
                 if 0 < i:
                     t = t[i:]
                 if fname.isdigit():
-                    texts.append(t)
+                    texts.append(clean_str(t))
                     f.close()
                     labels.append(label_id)
                 else:
-                    split_text = t.split('\n')
+                    split_text = [clean_str(txt) for txt in t.split('\n')]
                     texts.extend(split_text)
                     f.close()            
                     labels.extend(len(split_text)*[label_id])
