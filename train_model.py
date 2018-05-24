@@ -31,7 +31,7 @@ def build_parser():
     
     parser.add_argument('--num_epochs', type=float, dest='num_epochs', 
                         help='number of epochs for training',
-                        default=20)
+                        default=25)
     
     parser.add_argument('--dropout_rate', type=float, dest='dropout_rate', 
                         help='dropout rate for flatten conv outputs',
