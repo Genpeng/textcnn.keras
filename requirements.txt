@@ -1,8 +1,6 @@
 tensorflow-gpu
-keras
 scikit-learn
-pandas
 deepdish
 h5py==2.8.0rc1
-matplotlib
+gensim
 ipykernel
