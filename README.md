@@ -3,6 +3,7 @@
 [Keras Implementation of "Convolutional Neural Networks for Sentence Classification" by Yoon Kim (2014)](https://arxiv.org/abs/1408.5882)
 
 ## Implementation Details
+This repository contains the code of an implementation of Yoon Kim's paer on using CNNs for Sentence Classification. The code is written using Tensorflow/Keras. A few differences from the original implementation is the use of `He Initialization`, since `relu' activation is used.  
 
 ## Documentation
 
